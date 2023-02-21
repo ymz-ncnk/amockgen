@@ -1,0 +1,6 @@
+{{- /* MethoDesc, MockImplName */ -}}
+// Unregister{{.MethoDesc.Name}} unregisters {{.MethoDesc.Name}}() method calls.
+func (mock {{.MockImplName}}) Unregister{{.MethoDesc.Name}}() {{.MockImplName}} {
+  mock.Unregister("{{.MethoDesc.Name}}")
+  return mock
+}

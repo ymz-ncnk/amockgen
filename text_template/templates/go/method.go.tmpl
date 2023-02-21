@@ -1,0 +1,32 @@
+{{- /* MethoDesc, MockImplName */ -}}
+func (mock {{.MockImplName}}) {{.MethoDesc.Name}}({{ MakeParams .MethoDesc.Params }}) ({{ MakeReturnVars .MethoDesc.ReturnVars }}) {
+	{{- range $index, $vDesc := .MethoDesc.Params }}
+		{{- if $vDesc.Interface }}
+			var {{$vDesc.Name}}Val reflect.Value
+			if {{$vDesc.Name}} == nil {
+				{{$vDesc.Name}}Val = reflect.Zero(reflect.TypeOf((*{{$vDesc.Type}})(nil)).Elem())
+			} else {
+				{{$vDesc.Name}}Val = reflect.ValueOf({{$vDesc.Name}})
+			}
+		{{- end }}
+	{{- end }}
+	{{- if eq (len .MethoDesc.ReturnVars) 0 }}
+		_, err := mock.Call("{{.MethoDesc.Name}}", {{MakeCallParams .MethoDesc.Params}})
+		if err != nil {
+			panic(err)
+		}
+	{{- else }}
+  	result, err := mock.Call("{{.MethoDesc.Name}}", {{MakeCallParams .MethoDesc.Params}})
+		if err != nil {
+			panic(err)
+		}
+		{{- range $index, $vDesc := .MethoDesc.ReturnVars }}
+			{{- if $vDesc.Interface }}
+				{{$vDesc.Name}}, _ = result[{{$index}}].({{$vDesc.Type}})	
+			{{- else }}
+				{{$vDesc.Name}} = result[{{$index}}].({{$vDesc.Type}})
+			{{- end }}
+		{{- end }}
+		return		
+	{{- end }}
+}

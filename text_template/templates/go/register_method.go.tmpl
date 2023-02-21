@@ -1,0 +1,7 @@
+{{- /* MethoDesc, MockImplName */ -}}
+// Register{{.MethoDesc.Name}} registers a function as a single {{.MethoDesc.Name}}() method call.
+func (mock {{.MockImplName}}) Register{{.MethoDesc.Name}}(
+  fn func({{ MakeParams .MethoDesc.Params }}) ({{ MakeReturnVars .MethoDesc.ReturnVars }})) {{.MockImplName}} {
+  mock.Register("{{.MethoDesc.Name}}", fn)
+  return mock
+}
