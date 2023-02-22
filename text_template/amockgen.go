@@ -1,4 +1,3 @@
-//go:generate go run gen/dvar.go
 package text_template
 
 import (

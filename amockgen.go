@@ -1,3 +1,4 @@
+//go:generate go run gen/dvar.go
 package amockgen
 
 // AMockGen is a code generator for AMock.
