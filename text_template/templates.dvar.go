@@ -75,7 +75,7 @@ func (mock {{.MockImplName}}) Register{{.MethoDesc.Name}}(
   return mock
 }`
 	templates["register_n_method.go.tmpl"] = `{{- /* MethoDesc, MockImplName */ -}}
-// Register{{.MethoDesc.Name}} registers a function as n {{.MethoDesc.Name}}() method calls.
+// RegisterN{{.MethoDesc.Name}} registers a function as n {{.MethoDesc.Name}}() method calls.
 func (mock {{.MockImplName}}) RegisterN{{.MethoDesc.Name}}(n int,
   fn func({{ MakeParams .MethoDesc.Params }}) ({{ MakeReturnVars .MethoDesc.ReturnVars }})) {{.MockImplName}} {
   mock.RegisterN("{{.MethoDesc.Name}}", n, fn)
